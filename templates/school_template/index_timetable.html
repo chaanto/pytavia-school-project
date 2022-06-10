@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Timetable</h1>
+
+        <form class="ui form" action="/timetable/add" method="POST">
+            <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+            <div class="field">
+                <label>Timetable Name</label>
+                <select name="lecture_course" id="lecture_course">
+                    {% for lecture_course in lecture_course_datas %}
+                        <option value="{{lecture_course._id}}">{{lecture_course.name}}</option>
+                    {% endfor %}
+                </select>
+                <input type="text" name="room" placeholder="Enter room..."><br>
+                <input type="date" name="date"><br>
+                <input type="time" name="time" min="09:00" max="21:00">
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        {% for timetable in timetable_datas %}
+        <div class="ui segment">
+            <p class="ui big header">{{ timetable.lecture_course }}</p>
+            <p class="ui big header">{{ timetable.lecture }}</p>
+            <p class="ui big header">{{ timetable.course }}</p>
+            <p class="ui big header">{{ timetable.room }}</p>
+            <p class="ui big header">{{ timetable.date }}</p>
+            <p class="ui big header">{{ timetable.time }}</p>
+            <p> {{timetable._id}}</p>
+            <a class="ui red button" href="/timetable/delete/{{timetable._id}}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

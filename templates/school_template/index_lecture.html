@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Lecture</h1>
+
+        <form class="ui form" action="/lecture/add" method="POST">
+            <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+            <div class="field">
+                <label>Lecture Name</label>
+                <input type="text" name="name" placeholder="Enter name..."><br>
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        {% for lecture in lecture_datas %}
+        <div class="ui segment">
+            <p class="ui big header">{{ lecture.name }}</p>
+
+            <form class="ui form" action="/lecture/update/{{lecture._id}}" method="POST">
+                <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+                <div class="field">
+                    <input type="text" name="name" placeholder="Enter name..."><br>
+                </div>
+                <button class="ui blue button" type="submit">UPDATE</button>
+            </form>
+            
+            <br>
+            <a class="ui red button" href="/lecture/delete/{{lecture._id}}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

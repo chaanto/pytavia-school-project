@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Course</h1>
+
+        <form class="ui form" action="/course/add" method="POST">
+            <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+            <div class="field">
+                <label>Course Name</label>
+                <input type="text" name="name" placeholder="Enter name..."><br>
+                <select name="major" id="major">
+                    {% for major in major_datas %}
+                        <option value="{{major._id}}">{{major.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        {% for course in course_datas %}
+        <div class="ui segment">
+            <p class="ui big header">{{ course.name }}</p>
+            <p class="ui big header">{{ course.major }}</p>
+            <p> {{course._id}}</p>
+            <a class="ui red button" href="/course/delete/{{course._id}}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

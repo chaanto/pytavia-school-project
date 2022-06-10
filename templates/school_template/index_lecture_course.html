@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture Course</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Lecture Course</h1>
+
+        <form class="ui form" action="/lecturecourse/add" method="POST">
+            <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+            <div class="field">
+                <label>Lecture Course Name</label>
+                <input type="text" name="name" placeholder="Enter name..."><br>
+                <select name="lecture" id="lecture">
+                    {% for lecture in lecture_datas %}
+                        <option value="{{lecture._id}}">{{lecture.name}}</option>
+                    {% endfor %}
+                </select>
+                <select name="course" id="course">
+                    {% for course in course_datas %}
+                        <option value="{{course._id}}">{{course.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        {% for lecturecourse in lecture_course_datas %}
+        <div class="ui segment">
+            <p class="ui big header">{{ lecturecourse.name }}</p>
+            <p class="ui big header">{{ lecturecourse.lecture }}</p>
+            <p class="ui big header">{{ lecturecourse.course }}</p>
+            <form class="ui form" action="/lecturecourse/update/{{lecturecourse._id}}" method="POST">
+                <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+                <div class="field">
+                    <label>Lecture Course Name</label>
+                    <input type="text" name="name" placeholder="Enter name..."><br>
+                    <select name="lecture" id="lecture">
+                        {% for lecture in lecture_datas %}
+                            <option value="{{lecture._id}}">{{lecture.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="course" id="course">
+                        {% for course in course_datas %}
+                            <option value="{{course._id}}">{{course.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button class="ui blue button" type="submit">UPDATE</button>
+            </form>
+            <br>
+            <a class="ui red button" href="/lecturecourse/delete/{{lecturecourse._id}}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

@@ -133,7 +133,50 @@ db = {
         "pkey"                        : "",
         "misc"                        : {},
     },
-   
+    
+    # DEFINED COLLECTION FOR CURRENT PROJECT
+    
+    "db_lecture" : {
+        "name" : "",
+    },
+    
+    "db_major" : {
+        "name": "",
+    },
+    
+    "db_room" : {
+        "name": "",
+    },
+    
+    "db_student" : {
+        "name": "",
+        "major": "",
+    },
+    
+    "db_course" : {
+        "name": "",
+        "major": "",
+    },
+    
+    "db_lecture_course": {
+        "name": "",
+        "lecture": "", 
+        "course": "",
+    },
+    
+    "db_student_course": {
+      "student" : "",
+      "lecture_course": "",  
+    },
+    
+    "db_timetable" : {
+        "lecture_course":"",
+        "course" : "",
+        "lecture": "",
+        "room": "",
+        "date" : "",
+        "time": "",
+    }
 } 
 """
 ### New way to define tables -- required in using bulk_db_action.py

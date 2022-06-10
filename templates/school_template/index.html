@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Schedule</h1>
+
+        {% for schedule in schedule_datas %}
+        <div class="ui segment">
+            <p class="ui big header">Subject : {{ schedule.lecture_course }}</p>
+            <p class="ui big header">Lecture : {{ schedule.lecture }}</p>
+            <p class="ui big header">Course  : {{ schedule.course }}</p>
+            <p class="ui big header">Room    : {{ schedule.room }}</p>
+            <p class="ui big header">Date    : {{ schedule.date }}</p>
+            <p class="ui big header">Time    : {{ schedule.time }} UTC +7</p>
+            <p class="ui big header">Student : {{ schedule.student }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

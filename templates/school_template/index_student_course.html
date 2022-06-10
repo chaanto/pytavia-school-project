@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Course</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">Student Course</h1>
+
+        <form class="ui form" action="/studentcourse/add" method="POST">
+            <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+            <div class="field">
+                <label>Student Course Name</label>
+                <select name="student" id="student" required>
+                    <option value=""></option>
+                    {% for student in student_datas %}
+                        <option value="{{student._id}}">{{student.name}}</option>
+                    {% endfor %}
+                </select>
+                <select name="lecture_course" id="lecture_course" required>
+                    <option value=""></option>
+                    {% for lecture_course in lecture_course_datas %}
+                        <option value="{{lecture_course._id}}">{{lecture_course.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="ui blue button" type="submit">Add</button>
+        </form>
+        <hr> {% for studentcourse in student_course_datas %}
+        <div class="ui segment">
+            <p class="ui big header">{{ studentcourse.student }}</p>
+            <p class="ui big header">{{ studentcourse.lecture_course }}</p>
+            <a class="ui red button" href="/studentcourse/delete/{{studentcourse._id}}">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        let student_select = document.getElementById('student');
+        let lecture_course_select = document.getElementById('lecture_course');
+
+        student_select.onchange = function() {
+            student = student_select.value;
+
+            fetch('student/filter/' + student).then(function(response) {
+                response.json().then(function(data) {
+                    let optionHTML = '';
+
+                    for (let lectureCourse of data.lectureCourses) {
+                        optionHTML += '<option value="' + Object.values(lectureCourse._id)[0] + '">' + lectureCourse.name + '</option>';
+                    }
+
+                    lecture_course_select.innerHTML = optionHTML;
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
